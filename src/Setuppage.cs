@@ -291,7 +291,16 @@ namespace Demo {
          Thread.Sleep (300);
          Assert.AreBitmapsEqual (@"C:\Work\S1actualvalue.png", @"C:\Work\S1currentvalue.png",90);
       }
-
+      [Test (45433, " To check the license")]
+      public void C150889 () {
+         win.FindFirstDescendant (x => x.ByAutomationId ("BtnDiagnostics")).Click ();
+         var homingWindow = win.Parent.FindFirstDescendant (x => x.ByAutomationId ("DiagnosticsWnd")).AsWindow ();
+         Thread.Sleep (500);
+         homingWindow.FindFirstDescendant (x => x.ByName ("License"))!.Click ();
+         Thread.Sleep (500);
+         win.FindFirstDescendant (x => x.ByAutomationId ("BtnDone")).Click ();
+         Thread.Sleep (500);
+      }
       public static Window win;
    }
       #endregion
