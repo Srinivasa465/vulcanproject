@@ -9,6 +9,7 @@ using System.Text.RegularExpressions;
 using Capture = FlaUI.Core.Capturing.Capture;
 using System.Drawing;
 using System.Threading;
+using System.ComponentModel;
 
 namespace Demo {
 
@@ -291,12 +292,16 @@ namespace Demo {
          Thread.Sleep (300);
          Assert.AreBitmapsEqual (@"C:\Work\S1actualvalue.png", @"C:\Work\S1currentvalue.png",90);
       }
-      [Test (45433, " To check the license")]
-      public void C150889 () {
+
+      /// <summary> To check the license </summary>
+      [Test (150889," To check the license")]
+      public void C150889() {
          win.FindFirstDescendant (x => x.ByAutomationId ("BtnDiagnostics")).Click ();
          var homingWindow = win.Parent.FindFirstDescendant (x => x.ByAutomationId ("DiagnosticsWnd")).AsWindow ();
          Thread.Sleep (500);
-         homingWindow.FindFirstDescendant (x => x.ByName ("License"))!.Click ();
+         var Licensewnd = homingWindow.FindFirstDescendant (x => x.ByName ("License"));
+         Assert.IsNotNull (Licensewnd, "License window not open");
+         Licensewnd.Click ();
          Thread.Sleep (500);
          win.FindFirstDescendant (x => x.ByAutomationId ("BtnDone")).Click ();
          Thread.Sleep (500);
