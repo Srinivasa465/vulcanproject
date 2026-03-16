@@ -293,7 +293,7 @@ namespace Demo {
       }
 
       /// <summary>To capture work offset in various modes </summary>
-      [Test (45409, "workoffset mode check")]
+      [Test (150885, "workoffset mode check")]
       public void C45409 () {
          win.FindFirstDescendant (x => x.ByName ("work offset")).AsButton ()!.Click ();
          win.FindFirstDescendant (x => x.ByName ("Positioning diode")).Click ();
