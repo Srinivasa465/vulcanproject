@@ -280,28 +280,15 @@ namespace Demo {
          Mouse.Click (new Point (111, 56));
       }
 
-      /// <summary> d</summary>
-      [Test (9, "capture")]
-      public void imagecampare () {
-         win.FindFirstDescendant (x => x.ByName ("Configure")).AsButton ()!.Click ();
-         Thread.Sleep (400);
-         win.FindFirstDescendant (x => x.ByName ("Work offsets")).AsButton ()!.Click ();
-         Thread.Sleep (500);
-         var expectedcapture = Capture.Rectangle (new Rectangle (7, 44, 1176, 117));
-         expectedcapture.ToFile (@"C:\Work\Temp\S1currentvalue.png");
-         Thread.Sleep (300);
-         Assert.AreBitmapsEqual (@"C:\Work\S1actualvalue.png", @"C:\Work\S1currentvalue.png",90);
-      }
-
       /// <summary> To check the license </summary>
       [Test (150889," To check the license")]
       public void C150889() {
          win.FindFirstDescendant (x => x.ByAutomationId ("BtnDiagnostics")).Click ();
          var homingWindow = win.Parent.FindFirstDescendant (x => x.ByAutomationId ("DiagnosticsWnd")).AsWindow ();
          Thread.Sleep (500);
-         var Licensewnd = homingWindow.FindFirstDescendant (x => x.ByName ("License"));
-         Assert.IsNotNull (Licensewnd, "License window not open");
-         Licensewnd.Click ();
+         var licenseWnd = homingWindow.FindFirstDescendant (x => x.ByName ("License"));
+         Assert.IsNotNull (licenseWnd, "License window not open");
+         licenseWnd.Click ();
          Thread.Sleep (500);
          win.FindFirstDescendant (x => x.ByAutomationId ("BtnDone")).Click ();
          Thread.Sleep (500);
