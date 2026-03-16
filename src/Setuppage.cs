@@ -292,7 +292,7 @@ namespace Demo {
          Assert.AreBitmapsEqual (@"C:\Work\S1actualvalue.png", @"C:\Work\S1currentvalue.png",90);
       }
 
-
+      /// <summary>To capture work offset in various modes </summary>
       [Test (45409, "workoffset mode check")]
       public void C45409 () {
          win.FindFirstDescendant (x => x.ByName ("work offset")).AsButton ()!.Click ();
@@ -348,14 +348,9 @@ namespace Demo {
                }
             }
          }
-         if (imagessame) {
-            Console.WriteLine ("Values screenshot match");
-         } else {
-            Console.WriteLine ("Values screenshot mismatch");
-         }
-
+         if (imagessame) Console.WriteLine ("Values screenshot match");
+         else Console.WriteLine ("Values screenshot mismatch");
       }
-    
       public static Window win;
    }
       #endregion
