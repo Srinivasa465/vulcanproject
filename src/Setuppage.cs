@@ -312,7 +312,7 @@ namespace Demo {
          Thread.Sleep (300);
          win.FindFirstDescendant (x => x.ByName ("Work offsets"))!.Click ();
          Thread.Sleep (500);
-         imageCompare (@"C:\Work\s11.actualvalue.png");
+         ImageCompare (@"C:\Work\s11.actualvalue.png");
       }
          
       public static Window win;

@@ -4,10 +4,10 @@ using Capture = FlaUI.Core.Capturing.Capture;
 
 namespace Demo {
    #region Class util------------------------------------------------------------------------------
-   #endregion
+  
   public class Util {
       #region Method-------------------------------------------------
-      public static void imageCompare(string actualImagePath) {
+      public static void ImageCompare(string actualImagePath) {
          var expectedCapture = Capture.Rectangle (new Rectangle (7, 44, 1176, 117));
          expectedCapture.ToFile (@"C:\Work\Temp\s11.expected.png");
          Thread.Sleep (300);
@@ -27,4 +27,5 @@ namespace Demo {
       #endregion
       }
    }
+   #endregion
 }
