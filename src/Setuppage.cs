@@ -1,20 +1,19 @@
-﻿using FlaUI.Core.AutomationElements;
+﻿using System.Diagnostics;
+using System.Drawing;
+using FlaUI.Core.AutomationElements;
 using FlaUI.Core.Conditions;
 using FlaUI.Core.Input;
 using FlaUI.UIA3;
 using Flit;
-using System.Diagnostics;
-using System.Drawing;
-using System.Text.RegularExpressions;
 using Capture = FlaUI.Core.Capturing.Capture;
-using System.Drawing;
-using System.Threading;
+using static Demo.Util;
+
 
 namespace Demo {
 
    [TestFixture (100, "Setuppage")]
    #region createpage------------------------------------------------------------------------------
-   public class createpage {
+   public class setupPage{
 
       #region method-------------------------------------------------
       [FixtureInitialize]
@@ -243,55 +242,30 @@ namespace Demo {
             Thread.Sleep (300);
             if (equalsButton != null) equalsButton.Click ();
          }
-         win.FindFirstDescendant (x => x.ByName ("work offset")).AsButton ()!.Click ();
-         Thread.Sleep (400);
-         win.FindFirstDescendant (x => x.ByName ("Positioning diode"))!.Click ();
-         Thread.Sleep (500);
-         win.FindFirstDescendant (x => x.ByAutomationId ("BtnDone"))!.Click ();
-         Thread.Sleep (500);
-         win.FindFirstDescendant (x => x.ByAutomationId ("BtnYes")).Click ();
-         Thread.Sleep (500);
-         win.FindFirstDescendant (x => x.ByName ("Configure")).AsButton ()!.Click ();
-         Thread.Sleep (400);
-         win.FindFirstDescendant (x => x.ByName ("Work offsets")).AsButton ()!.Click ();
-         Thread.Sleep (500);
-         var expectedcapture = Capture.Rectangle (new Rectangle (7, 44, 1176, 117));
-         expectedcapture.ToFile (@"C:\Work\Temp\S1currentvalue.png");
-         Thread.Sleep (300);
-         Bitmap actual = new Bitmap (@"C:\Work\S1actualvalue.png");
-         Bitmap expected = new Bitmap (@"C:\Work\Temp\S1currentvalue.png");
-         bool imagesAreSame = true;
-         for (int y = 0; y < expected.Height; y++) {
-            for (int x = 0; x < expected.Width; x++) {
-               if (expected.GetPixel (x, y) != actual.GetPixel (x, y)) {
-                  imagesAreSame = false;
-                  break;
-               }
-            }
-         }
-         if (imagesAreSame)
-            Console.WriteLine ("Screenshots match!");
-         else
-            Console.WriteLine ("Screenshots differ!");
+         workoffset ("work offset", "Positioning diode", "BtnDone", "BtnYes");
+         byName ("Configure", "Work offsets");
+         imageCompare (@"C:\Work\S1actualvalue.png", @"C:\Work\Temp\S1currentvalue.png");     
          Thread.Sleep (300);
          Mouse.Click (new Point (1234, 968));
          Thread.Sleep (300);
          Mouse.Click (new Point (111, 56));
       }
 
-      /// <summary> d</summary>
-      [Test (9, "capture")]
-      public void imagecampare () {
-         win.FindFirstDescendant (x => x.ByName ("Configure")).AsButton ()!.Click ();
-         Thread.Sleep (400);
-         win.FindFirstDescendant (x => x.ByName ("Work offsets")).AsButton ()!.Click ();
-         Thread.Sleep (500);
-         var expectedcapture = Capture.Rectangle (new Rectangle (7, 44, 1176, 117));
-         expectedcapture.ToFile (@"C:\Work\Temp\S1currentvalue.png");
+      /// <summary>To capture work offset in various modes </summary>
+      [Test (150885, "workoffset mode check")]
+      public void C150885() {
+         workoffset ("work offset", "Positioning diode", "BtnDone", "BtnYes");
+         workoffset ("work offset", "Nozzle center", "BtnDone", "BtnYes");
+         workoffset ("work offset", "Machine zero point", "BtnDone", "BtnYes");
+         manual ("work offset", "Manual", "NEditX", "NEditY", "BtnDone", "BtnYes");
          Thread.Sleep (300);
-         Assert.AreBitmapsEqual (@"C:\Work\S1actualvalue.png", @"C:\Work\S1currentvalue.png",90);
+         byName ("Configure", "Work offsets");
+         imageCompare (@"C:\Work\s111.actualvalue.png", @"C:\Work\Temp\s111.expected.png");
+         Mouse.Click (new Point (1229, 975));
+         Thread.Sleep (300);
+         Mouse.Click (new Point (111, 56));
       }
-
+         
       public static Window win;
    }
       #endregion

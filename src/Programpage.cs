@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Drawing;
-using System.Text;
 using FlaUI.Core.AutomationElements;
-using FlaUI.Core.Conditions;
 using FlaUI.Core.Input;
 using FlaUI.UIA3;
 using Flit;
@@ -34,7 +30,6 @@ namespace Demo {
       public void Programspage () {
          win.FindFirstDescendant (x => x.ByName ("edit"))!.Click ();
          Thread.Sleep (400);
-         
          Mouse.Click (new Point (398, 411));
          Point start = new Point (429, 462);
          Point drag = new Point (722, 717);
