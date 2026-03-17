@@ -243,10 +243,7 @@ namespace Demo {
             if (equalsButton != null) equalsButton.Click ();
          }
          workoffset ("work offset", "Positioning diode", "BtnDone", "BtnYes");
-         win.FindFirstDescendant (x => x.ByName ("Configure")).AsButton ()!.Click ();
-         Thread.Sleep (400);
-         win.FindFirstDescendant (x => x.ByName ("Work offsets")).AsButton ()!.Click ();
-         Thread.Sleep (500);
+         byName ("Configure", "Work offsets");
          imageCompare (@"C:\Work\S1actualvalue.png", @"C:\Work\Temp\S1currentvalue.png");     
          Thread.Sleep (300);
          Mouse.Click (new Point (1234, 968));
@@ -262,12 +259,10 @@ namespace Demo {
          workoffset ("work offset", "Machine zero point", "BtnDone", "BtnYes");
          manual ("work offset", "Manual", "NEditX", "NEditY", "BtnDone", "BtnYes");
          Thread.Sleep (300);
-         win.FindFirstDescendant (x => x.ByName ("Configure"))!.Click ();
-         Thread.Sleep (300);
-         win.FindFirstDescendant (x => x.ByName ("Work offsets"))!.Click ();
-         Thread.Sleep (500);
+         byName ("Configure", "Work offsets");
          imageCompare (@"C:\Work\s111.actualvalue.png", @"C:\Work\Temp\s111.expected.png");
          Mouse.Click (new Point (1229, 975));
+         Thread.Sleep (300);
          Mouse.Click (new Point (111, 56));
       }
          

@@ -61,10 +61,18 @@ namespace Demo {
          }
             foreach (var verified in Ids)
                win.FindFirstDescendant (x => x.ByAutomationId (verified))!.Click ();
-            Thread.Sleep (500);
+               Thread.Sleep (500);
          
       }
 
+      public static void byName (string eleName,string wrkOff) {
+         var uia3 = new UIA3Automation ();
+         var win = uia3.GetDesktop ().FindFirstDescendant (x => x.ByAutomationId ("HomePage")).AsWindow (); // Home window
+         string[] name = [eleName, wrkOff];
+         foreach(var byname in name)
+          win.FindFirstDescendant (x => x.ByName (byname))!.Click ();
+         Thread.Sleep (500);
+      }
       #endregion
 
    }
