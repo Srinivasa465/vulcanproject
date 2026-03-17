@@ -242,36 +242,12 @@ namespace Demo {
             Thread.Sleep (300);
             if (equalsButton != null) equalsButton.Click ();
          }
-         win.FindFirstDescendant (x => x.ByName ("work offset")).AsButton ()!.Click ();
-         Thread.Sleep (400);
-         win.FindFirstDescendant (x => x.ByName ("Positioning diode"))!.Click ();
-         Thread.Sleep (500);
-         win.FindFirstDescendant (x => x.ByAutomationId ("BtnDone"))!.Click ();
-         Thread.Sleep (500);
-         win.FindFirstDescendant (x => x.ByAutomationId ("BtnYes")).Click ();
-         Thread.Sleep (500);
+         workoffset ("work offset", "Positioning diode", "BtnDone", "BtnYes");
          win.FindFirstDescendant (x => x.ByName ("Configure")).AsButton ()!.Click ();
          Thread.Sleep (400);
          win.FindFirstDescendant (x => x.ByName ("Work offsets")).AsButton ()!.Click ();
          Thread.Sleep (500);
-         var expectedcapture = Capture.Rectangle (new Rectangle (7, 44, 1176, 117));
-         expectedcapture.ToFile (@"C:\Work\Temp\S1currentvalue.png");
-         Thread.Sleep (300);
-         Bitmap actual = new Bitmap (@"C:\Work\S1actualvalue.png");
-         Bitmap expected = new Bitmap (@"C:\Work\Temp\S1currentvalue.png");
-         bool imagesAreSame = true;
-         for (int y = 0; y < expected.Height; y++) {
-            for (int x = 0; x < expected.Width; x++) {
-               if (expected.GetPixel (x, y) != actual.GetPixel (x, y)) {
-                  imagesAreSame = false;
-                  break;
-               }
-            }
-         }
-         if (imagesAreSame)
-            Console.WriteLine ("Screenshots match!");
-         else
-            Console.WriteLine ("Screenshots differ!");
+         imageCompare (@"C:\Work\S1actualvalue.png", @"C:\Work\Temp\S1currentvalue.png");     
          Thread.Sleep (300);
          Mouse.Click (new Point (1234, 968));
          Thread.Sleep (300);
@@ -281,38 +257,18 @@ namespace Demo {
       /// <summary>To capture work offset in various modes </summary>
       [Test (150885, "workoffset mode check")]
       public void C150885() {
-         win.FindFirstDescendant (x => x.ByName ("work offset")).AsButton ()!.Click ();
-         win.FindFirstDescendant (x => x.ByName ("Positioning diode")).Click ();
+         workoffset ("work offset", "Positioning diode", "BtnDone", "BtnYes");
+         workoffset ("work offset", "Nozzle center", "BtnDone", "BtnYes");
+         workoffset ("work offset", "Machine zero point", "BtnDone", "BtnYes");
+         manual ("work offset", "Manual", "NEditX", "NEditY", "BtnDone", "BtnYes");
          Thread.Sleep (300);
-         win.FindFirstDescendant (x => x.ByAutomationId ("BtnDone"))!.Click ();
-         win.FindFirstDescendant (x => x.ByAutomationId ("BtnYes"))!.Click ();
-         win.FindFirstDescendant (x => x.ByName ("work offset")).AsButton ()!.Click ();
-         Thread.Sleep (400);
-         win.FindFirstDescendant (x => x.ByName ("Nozzle center"))!.Click ();
-         Thread.Sleep (300);
-         win.FindFirstDescendant (x => x.ByAutomationId ("BtnDone"))!.Click ();
-         win.FindFirstDescendant (x => x.ByAutomationId ("BtnYes"))!.Click ();
-         win.FindFirstDescendant (x => x.ByName ("work offset")).AsButton ()!.Click ();
-         Thread.Sleep (400);
-         win.FindFirstDescendant (x => x.ByName ("Machine zero point"))!.Click ();
-         Thread.Sleep (300);
-         win.FindFirstDescendant (x => x.ByAutomationId ("BtnDone"))!.Click ();
-         win.FindFirstDescendant (x => x.ByAutomationId ("BtnYes"))!.Click ();
-         win.FindFirstDescendant (x => x.ByName ("work offset")).AsButton ()!.Click ();
-         Thread.Sleep (400);
-         win.FindFirstDescendant (x => x.ByName ("Manual"))!.Click ();
-         Thread.Sleep (300);
-         win.FindFirstDescendant (x => x.ByAutomationId ("NEditX"))!.Click ();
-         Keyboard.Type ("300"); Thread.Sleep (300);
-         win.FindFirstDescendant (x => x.ByAutomationId ("NEditY")).AsTextBox ()!.Click ();
-         Keyboard.Type ("400"); Thread.Sleep (300);
-         win.FindFirstDescendant (x => x.ByAutomationId ("BtnDone"))!.Click ();
-         win.FindFirstDescendant (x => x.ByAutomationId ("BtnYes"))!.Click ();
          win.FindFirstDescendant (x => x.ByName ("Configure"))!.Click ();
          Thread.Sleep (300);
          win.FindFirstDescendant (x => x.ByName ("Work offsets"))!.Click ();
          Thread.Sleep (500);
-         ImageCompare (@"C:\Work\s11.actualvalue.png");
+         imageCompare (@"C:\Work\s111.actualvalue.png", @"C:\Work\Temp\s111.expected.png");
+         Mouse.Click (new Point (1229, 975));
+         Mouse.Click (new Point (111, 56));
       }
          
       public static Window win;
